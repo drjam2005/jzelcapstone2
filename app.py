@@ -31,8 +31,7 @@ def login():
         datacursor.execute("SELECT * FROM studentDATA WHERE studentID = ?", (student_id,))
         database.close()
         return render_template("/password.html", studentid=student_id)
-    except sqlite3.Error as e:
-        print(f"Database error: {e}")
+    except:
         return render_template("/error.html", error="User not found!")
 
 @app.route('/password', methods=['GET', 'POST'])
@@ -64,8 +63,7 @@ def password():
                     return render_template("/statements.html", transactions=statements, user_name=name, print=False, checker=1, user_id=student_id)
             else:
                 return render_template("/error.html", error="Incorrect Password!")
-        except sqlite3.Error as e:
-            print(f"Database error: {e}")
+        except:
             return render_template("/error.html", error="User not found!")
 
 
