@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <button onclick="printFile()">Print File</button>
+    <script>
+        function printFile() {
+            // Create a new window
+            var printWindow = window.open('', '_blank');
+            // Construct the content of the formatted file
+            if {{strand}} == "STEM"
+                var content = '<!DOCTYPE html>' +
+                            '<html>' +
+                            '<head>' +
+                            '<title>Printed Document</title>' +
+                            '</head>' +
+                            '<body>' +
+                            '<p>Naga College Foundation</p>' +
+                            '<p>ID No: {{user_id}}  </p>' +
+                            '<p>Name: {{user_name}}  </p>' +
+                            '<p>----------------------------------------------</p>' +
+                            '<p>CODE                  DESCRIPTION                    SIGNATURE</p>' +
+                            '<p>SPEC_STEM_7           General Biology 2              ___________</p>' +
+                            '<p>SPEC_STEM_8           General Chemistry 2            ___________</p>' +
+                            '<p>SPEC_STEM_6           General Physics 2              ___________</p>' +
+                            '<p>CORE_IT_1             Media and Information Literacy ___________</p>' +
+                            '<p>CORE_PE_12-2          Physical Education and Health  ___________</p>' +
+                            '<p>APP_RESEARCH_2        Research In Daily Life 2       ___________</p>' +
+                            '<p>APP_RESEARCH_3        Reseach Project                ___________</p>' +
+                            '<p>SPEC_STEM_9           Resarch Capstone/Project       ___________</p>' +
+                            '<p>>>Nothing Follows<<</p>' +
+                            
+                            '</body>' +
+                            '</html>';
+            elif {{strand}} == "ABM"
+                var content = '<!DOCTYPE html>' +
+                    '<html>' +
+                    '<head>' +
+                    '<title>Printed Document</title>' +
+                    '</head>' +
+                    '<body>' +
+                    '<p>Naga College Foundation</p>' +
+                    '<p>ID No: {{user_id}}  </p>' +
+                    '<p>Name: {{user_name}}  </p>' +
+                    '<p>----------------------------------------------</p>' +
+                    '<p>Placeholder</p>' +
+                    '</body>' +
+                    '</html>';
+
+            // Write the content to the new window
+            printWindow.document.open();
+            printWindow.document.write(content);
+            printWindow.document.close();
+            // Print the content
+            printWindow.print();
+        }
+    </script>
+</body>
+</html>

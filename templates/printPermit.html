@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Printed Document</title>
+  <style>
+      body {
+        background-image: url('../static/image.jpg');  
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+  </style>
+</head>
+<script>
+    // JavaScript code to trigger print dialog when the page loads
+    window.onload = function() {
+        window.print();
+        setTimeout(function() {
+            window.location.href = "/";
+        }, 5000);
+    };
+</script>
+<body class="container" style="font-size: 10px">
+  <p style="font-weight: bold; text-align:center; font-size: 20px">Naga College Foundation</p>
+  <p style="font-size: 15px; text-align: center;">Naga City, Camarines Sur</piv>
+  <table>
+    <tr>
+        <td>ID No: {{user_id}}</td>
+        <td></td>
+        <td style="text-align: right;">Exam: FINALS</td>
+    </tr>
+    <tr>
+        <td>Name: {{user_name}}</td>
+        <td></td>
+        <td style="text-align: right;">Course/Level: BED_STEM/Grade12</td>
+    </tr>
+  </table>
+  <table>
+    <tr style="font-weight: bold">
+      <th>CODE</th>
+      <th>DESCRIPTION</th>
+      <th>SIGNATURE</th>
+    </tr>
+    {% for strand in strandinfo %} 
+    <tr>
+      <td>{{ strand[0] }}</td>
+      <td>{{ strand[1] }}</td>
+      <td>___________</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td></td>
+      <td style="font-weight: bold">>>>Nothing Follows<<<</td>
+      <td></td>
+    </tr>
+  </table>
+</body>
+</html>
