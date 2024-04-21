@@ -22,9 +22,18 @@ def login():
         database = sqlite3.connect("database.db")
         datacursor = database.cursor()
         datacursor.execute("UPDATE studentDATA SET studentPRINTED = 0")
+        datacursor.execute("""
+            DELETE FROM StatementOfAccounts
+            WHERE (studentID, Remarks) IN (
+                SELECT studentID, Remarks
+                FROM StatementOfAccounts
+                WHERE REMARKS = 'TF'
+                GROUP BY studentID
+            )
+        """)
         database.commit()
         database.close()
-        return redirect("/") 
+        return redirect("/")
     try:
         database = sqlite3.connect("database.db")
         datacursor = database.cursor()
@@ -45,10 +54,15 @@ def password():
             site_password = request.form['sitepassword']
             datacursor.execute("SELECT * FROM studentDATA WHERE studentID = ?", (student_id,))
             student = datacursor.fetchone()
+            datacursor.execute("SELECT * FROM StatementOfAccounts WHERE studentID = ? ORDER BY TransactionDATE DESC LIMIT 1", (student_id,))
+            statements = datacursor.fetchone()
             database.close()
             global strand
             global name
-            userid, name, balance, debt, password, strand, printed = student
+            global balance
+            global debit
+            userid, name, buhlance, debt, password, strand, printed = student
+            iduser, studname, desc, remrks, transdate, debit, credit, balance = statements
             if str(password) == str(site_password):
                 database = sqlite3.connect("database.db")
                 datacursor = database.cursor()
@@ -72,6 +86,7 @@ def print_pertmit():
     database = sqlite3.connect("database.db")
     datacursor = database.cursor()
     datacursor.execute("UPDATE studentDATA SET studentPRINTED = ? WHERE studentID = ?", (1, student_id))
+    datacursor.execute("INSERT INTO  StatementOfAccounts (studentID, studentNAME, Description, Remarks, TransactionDATE, DEBIT , CREDIT, BALANCE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (student_id,name,"TUITION FEE PAYMENT","TF","2024-04-22",0,(debit),(balance-debit)))
     database.commit()
     database.close()
     if strand == "STEM12":
