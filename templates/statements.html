@@ -126,9 +126,9 @@
             <td>{{ transaction[2] }}</td>
             <td>{{ transaction[3] }}</td>
             <td>{{ transaction[4] }}</td>
-            <td {% if loop.last %}style="font-weight: bold; color: #ff9999"{% endif %}>{{ transaction[5] | format }}</td>
-            <td>{{ transaction[6] }}</td>
-            <td {% if loop.last %}style="font-weight: bold; color: #10ff10"{% endif %} >{{ transaction[7] | format }}</td>
+            <td {% if loop.last %}style="font-weight: bold; color: #ff9999"{% endif %}>{{"₱{:,.2f}".format(transaction[5])}}</td>
+            <td>{{"₱{:,.2f}".format(transaction[6]) }}</td>
+            <td {% if loop.last %}style="font-weight: bold; color: #10ff10"{% endif %} >{{"₱{:,.2f}".format(transaction[7])}}</td>
         </tr>
         {% endfor %}
         <tr>
